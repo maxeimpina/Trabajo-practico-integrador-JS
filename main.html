@@ -1,0 +1,224 @@
+<!--
+   main.html
+   
+   
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+   MA 02110-1301, USA.
+   
+   
+-->
+
+<!--
+VERSION BETA 
+
+FALTA ARMAR CSS Y MAQUETADO
+FALTA VALIDAR EMAIL Y ENVIAR AL MAIL DATOS DE RESERVA
+
+-->
+
+
+<html>
+
+<head>
+	<title>compra de tickets</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	
+	<style>
+		#categorias,#resumen {
+			flex-wrap: wrap;
+			display: flex;
+			align-content: center;
+			justify-content: center;	
+			gap: 2%;
+		}
+
+		.btn-estudiante {
+			justify-content: left;
+			align-items: center;
+			height: 200px;
+			weight: 200px;
+			border: 3px solid green; 
+		}
+		.btn-traine {
+			justify-content: center;
+			align-items: center;
+			height: 200px;
+			weight: 200px;
+			border: 3px solid green; 
+		}	
+
+		.btn-junior {
+			justify-content: right;
+			align-items: center;
+			height: 200px;
+			weight: 200px;
+			border: 3px solid green; 
+		}
+		.flex-container {
+			display: grid;
+			align-items: center;
+			gap: 20% 20%;   
+			background-color: grey;
+
+		}
+		   
+      </style>
+	
+</head>
+
+<body>
+
+
+	<section id="descuentos" class="container">
+		<button type="button" class="btn-estudiante"> Estudiante Tiene un descuento de 80%</button>
+		<button type="button" class="btn-traine"> Traine Tiene un descuento de 50%</button>
+		<button type="button" class="btn-junior"> Junior Tiene un descuento de 15%</button>
+	</section>	
+	
+		<h1><center>VALOR DEL TICKET $200</center></h1>
+		
+		<section id="campos" class="flex-container">
+	<form>
+
+					<div>
+		<label for="nombre">nombre</label>
+		<input type="text" name="nombre" id="nombre">
+					</div>
+
+		<div>
+		<label for="apellido">apellido</label>
+		<input type="text" name="apellido" id="apellido">
+		</div>
+		
+		<div>
+			<label for="correo">correo</label>
+			<input type="email" name="correo" id="correo" size="30" pattern=".+@email\.com" required 
+			placeholder="usuario@email.com" title="Ingrese su email">
+		</div>
+
+
+		<div>
+		<label for="cantidad">cantidad</label>
+		<input type="range" id="cantidad" name="cantidad"
+         min="0" max="11" value="1" step="1">
+		</div>
+	
+		<div>
+
+	<label for="categorias">Elija una categoria:</label>
+
+	<select name="categorias" id="categoria-elegida">
+	<option value="">--Elija una categoria--</option>
+    <option value="Estudiante">Estudiante</option>
+     <option value="Traine">Traine</option>
+    <option value="Junior">Junior</option>
+    <option value="sin categoria" selected>Sin categoria</option>
+	</select>
+	
+			</div>
+		<div>
+		<label>Total a pagar:</label>
+		<div id="total"></div>
+		</div>
+		
+
+		<section id="resumen" class="container">
+        <input type="reset" value="borrar" name="reset">
+        
+        <input type="button" value="resumen" name="resumen">
+		</section>	
+					
+					
+	<script type="text/javascript">
+	
+	const btn1=document.getElementsByClassName("btn-estudiante"); 
+	const btn2=document.getElementsByClassName("btn-traine"); 
+	const btn3=document.getElementsByClassName("btn-junior"); 
+	
+	btn1[0].addEventListener('click', () => {
+            alert("La categoria Estudiante tiene un descuento de 80% quedando un Total de $40 por entrada")
+		});
+		
+		
+	btn2[0].addEventListener('click', () => {
+            alert("La categoria Traine tiene un descuento de 50% quedando un Total de $100 por entrada")
+		});
+		
+	btn3[0].addEventListener('click', () => {		            
+			alert("La categoria Junior tiene un descuento de 15% quedando un Total de $170 por entrada")
+		});
+		
+	
+	const nom=document.getElementsByName('nombre')		
+	const ape=document.getElementsByName('apellido')		
+	const cant=document.getElementsByName('cantidad')	
+	const cat=document.getElementsByName('categorias')	
+			
+	const subtotal=document.getElementById('total')	
+
+	const btn=document.getElementsByName('resumen')	
+        
+			
+	function selector(categoriaelegida){
+		
+		switch (categoriaelegida){
+			case "Estudiante":
+				var precio=40;
+				break;
+			case "Traine":
+				var precio=100;
+				break;
+			case "Junior":
+				var precio=170;
+				break;
+			case "sin categoria":
+				var precio=200;
+			default:
+			var precio=200;
+		}
+		return precio
+	}
+		
+		
+		btn[0].addEventListener('click', () => {
+			
+			var nombre=nom[0].value;
+			var apellido=ape[0].value;			
+			var cantidadelegido=Number(cant[0].value);
+			var categoriaelegida=cat[0].value;
+			
+			var precio=selector(categoriaelegida);
+
+			
+			var apagar= calcular();
+			
+			function calcular(){
+				return cantidadelegido*precio
+				};
+			
+	
+			subtotal.innerHTML=apagar;
+			
+						});			
+	</script>
+		
+		
+	</form>
+	</section>	
+	
+
+
+</body>
+</html>
